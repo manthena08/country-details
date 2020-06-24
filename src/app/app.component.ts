@@ -4,7 +4,7 @@ import { IAppState } from './store/state/app.state';
 import { getRegionsList, getCountryListForRegion, getCountryDetails } from './store/selector/app.selector';
 import { GetRegions, GetSelectedRegion, SetSelectedRegion } from './store/action/region.action';
 import { ApiService } from './services/api.service';
-import { SetCountryDetailList, SetSelectedCountry } from './store/action/country.action';
+import { SetCountryDetailList, SetSelectedCountry, GetCountries } from './store/action/country.action';
 
 @Component({
   selector: 'app-root',
@@ -32,9 +32,7 @@ export class AppComponent implements OnInit {
 
   onRegionChange(value: string) {
     this.store.dispatch(new SetSelectedRegion(value));
-    this.apiService.getCountryDetails(value.toLowerCase()).subscribe(countryList => {
-      this.store.dispatch(new SetCountryDetailList(countryList));
-    });
+    this.store.dispatch(new GetCountries(value));
   }
 
   onCountryChange(value: string) {

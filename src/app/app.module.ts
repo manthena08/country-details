@@ -9,6 +9,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { appReducers } from './store/reducer/app.reducer';
 import { CountryDetailsGridComponent } from './components/country-details-grid/country-details-grid.component';
+import { EffectsModule } from '@ngrx/effects';
+import { CountryEffects } from './store/effect/country.effects';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { CountryDetailsGridComponent } from './components/country-details-grid/c
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    StoreModule.forRoot(appReducers)
+    StoreModule.forRoot(appReducers),
+    EffectsModule.forRoot([CountryEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

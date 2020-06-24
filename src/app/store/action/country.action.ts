@@ -9,6 +9,8 @@ export enum ECountryAction {
 
 export class GetCountries implements Action {
     public readonly type = ECountryAction.GetCountries;
+    constructor(public payload: string) { }
+
 }
 
 export class SetSelectedCountry implements Action {
