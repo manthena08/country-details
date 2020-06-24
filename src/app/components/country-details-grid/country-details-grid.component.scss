@@ -1,0 +1,19 @@
+
+
+.country-details-grid {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid #ddd;
+    text-align: left;
+    td,
+    th {
+        text-align: left;
+        padding: 15px;
+    border: 1px solid #ddd;
+
+    }
+    .countryFlag {
+        width: 20px;
+        height: 20px;
+    }
+}

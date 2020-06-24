@@ -1,0 +1,22 @@
+<table class="country-details-grid">
+    <tr>
+        <th>Name</th>
+        <th>Capital</th>
+        <th>Population</th>
+        <th>Currencies</th>
+        <th>Flag</th>
+    </tr>
+    <tr>
+        <td>{{countryDetails.name}}</td>
+        <td>{{countryDetails.capital}}</td>
+        <td>{{countryDetails.population}} </td>
+        <td>
+            <ng-container *ngFor="let currencies of countryDetails.currencies">
+                <span>{{currencies.name}} ,</span>
+            </ng-container>
+        </td>
+        <td>
+            <img [src]="countryDetails.flag" class="countryFlag"/>
+        </td>
+    </tr>
+</table>

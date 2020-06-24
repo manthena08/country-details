@@ -1,0 +1,9 @@
+<div class="selection-dropdown">
+    <label>{{label}}</label>
+    <select (change)="onItemChange($event)">
+        <option value="">Select</option>
+        <option *ngFor="let item of dropdownList" [ngValue]="item">
+            {{item}}
+        </option>
+    </select>
+</div>
