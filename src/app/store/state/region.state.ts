@@ -6,4 +6,4 @@ export interface IRegionState {
 export const initialRegionState: IRegionState = {
     selectedRegion: '',
     regionDropdownList: ['Europe', 'Asia']
-}
+};

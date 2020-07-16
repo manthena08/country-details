@@ -44,4 +44,4 @@ describe('App selectors', () => {
         } as ICountryDetailsViewModel;
         expect(appSelector.getCountryDetails(stateApp)).toEqual(countryMatch);
     });
-})
+});

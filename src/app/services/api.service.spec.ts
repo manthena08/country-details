@@ -37,5 +37,5 @@ describe('ApiService', () => {
         const request = httpMock.expectOne(`${service.baseUrl}region1`);
         expect(request.request.method).toBe('GET');
         request.flush(dummyPosts);
-    })
+    });
 });

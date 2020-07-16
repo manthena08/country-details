@@ -1,5 +1,5 @@
 import { Spectator, createComponentFactory } from '@ngneat/spectator';
-import { AppComponent } from "./app.component";
+import { AppComponent } from './app.component';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { MemoizedSelector } from '@ngrx/store';
 import { getRegionsList, getCountryListForRegion, getCountryDetails, getSelectedRegions } from './store/selector/app.selector';

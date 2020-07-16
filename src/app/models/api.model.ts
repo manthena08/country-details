@@ -22,5 +22,5 @@ export interface ICountryDetailsViewModel {
     translations?: object;
     flag?: string;
     regionalBlocs?: object[];
-    cioc?: string
+    cioc?: string;
 }

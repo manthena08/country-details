@@ -12,4 +12,4 @@ export const initialCountryState: ICountryState = {
     countryDropdownList: [],
     countryDetails: undefined,
     countryServerResponse: []
-}
+};
