@@ -1,6 +1,6 @@
 export interface IRegionState {
     selectedRegion: string;
-    regionDropdownList: string[]
+    regionDropdownList: string[];
 }
 
 export const initialRegionState: IRegionState = {

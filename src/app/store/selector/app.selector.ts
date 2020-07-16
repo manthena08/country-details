@@ -6,6 +6,11 @@ export const getRegionsList = createSelector(
     regionsList => regionsList
 );
 
+export const getSelectedRegions = createSelector(
+    (state: IAppState) => state.region.selectedRegion,
+    region => region
+);
+
 export const getCountryListForRegion = createSelector(
     (state: IAppState) => state.country.countryServerResponse,
     (countryList) => countryList.map(country => country.name)

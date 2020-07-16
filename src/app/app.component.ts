@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from './store/state/app.state';
-import { getRegionsList, getCountryListForRegion, getCountryDetails } from './store/selector/app.selector';
+import { getRegionsList, getCountryListForRegion, getCountryDetails, getSelectedRegions } from './store/selector/app.selector';
 import { GetRegions, GetSelectedRegion, SetSelectedRegion } from './store/action/region.action';
-import { ApiService } from './services/api.service';
 import { SetCountryDetailList, SetSelectedCountry, GetCountries } from './store/action/country.action';
 
 @Component({
@@ -17,13 +16,11 @@ export class AppComponent implements OnInit {
   title = 'country-details';
 
   regionsList$ = this.store.pipe(select(getRegionsList));
-  selectedRegion$ = this.store.pipe(select((state: IAppState) => state.region.selectedRegion));
+  selectedRegion$ = this.store.pipe(select(getSelectedRegions));
   countryList$ = this.store.pipe(select(getCountryListForRegion));
   selectedCountryDetails$ = this.store.pipe(select(getCountryDetails));
 
-  constructor(private store: Store<IAppState>, private apiService: ApiService) {
-
-  }
+  constructor(private store: Store<IAppState>) {}
 
   ngOnInit() {
     this.store.dispatch(new GetRegions());

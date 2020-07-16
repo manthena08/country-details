@@ -7,10 +7,11 @@ import { ICountryDetailsViewModel } from '../models/api.model';
 })
 
 export class ApiService {
+    baseUrl = 'https://restcountries.eu/rest/v2/region/';
     constructor(private http: HttpClient) { }
 
     getCountryDetails(region: string) {
-        const url = `https://restcountries.eu/rest/v2/region/${region}`;
+        const url = `${this.baseUrl}${region}`;
         return this.http.get<ICountryDetailsViewModel[]>(url);
     }
 }

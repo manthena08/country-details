@@ -1,35 +1,57 @@
-import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
+import { Spectator, createComponentFactory } from '@ngneat/spectator';
+import { AppComponent } from "./app.component";
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { MemoizedSelector } from '@ngrx/store';
+import { getRegionsList, getCountryListForRegion, getCountryDetails, getSelectedRegions } from './store/selector/app.selector';
+import { IAppState } from './store/state/app.state';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { ICountryDetailsViewModel } from './models/api.model';
+import { SetSelectedRegion } from './store/action/region.action';
+import { GetCountries, SetSelectedCountry } from './store/action/country.action';
 
-describe('AppComponent', () => {
-  beforeEach(async(() => {
+describe('App component', () => {
+  let fixture: ComponentFixture<AppComponent>;
+  let mockStore: MockStore;
+  let mockRegionList: MemoizedSelector<IAppState, string[]>;
+  let mockSelectedRegion: MemoizedSelector<IAppState, string>;
+  let mockCountryList: MemoizedSelector<IAppState, string[]>;
+  let mockSelectedCountryDetails: MemoizedSelector<IAppState, ICountryDetailsViewModel>;
+
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  }));
+      providers: [provideMockStore()],
+      declarations: [AppComponent],
+    });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+    fixture = TestBed.createComponent(AppComponent);
+    mockStore = TestBed.inject(MockStore);
+    mockRegionList = mockStore.overrideSelector(getRegionsList, []);
+    mockSelectedRegion = mockStore.overrideSelector(getSelectedRegions, '');
+    mockCountryList = mockStore.overrideSelector(getCountryListForRegion, []);
 
-  it(`should have as title 'country-details'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('country-details');
-  });
+    mockSelectedCountryDetails = mockStore.overrideSelector(getCountryDetails, {} as ICountryDetailsViewModel);
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('country-details app is running!');
   });
+
+  it('should have a success class by default', () => {
+    expect(fixture.componentInstance.title).toEqual('country-details');
+  });
+
+  it('onRegionChange', () => {
+    const regionAction = new SetSelectedRegion('region1');
+    const getCountry = new GetCountries('region1');
+    const spy = spyOn(mockStore, 'dispatch');
+    fixture.componentInstance.onRegionChange('region1');
+    expect(spy).toHaveBeenCalledWith(regionAction);
+    expect(spy).toHaveBeenCalledWith(getCountry);
+  });
+
+  it('onCountryChange', () => {
+    const countryAction = new SetSelectedCountry('country1');
+    const spy = spyOn(mockStore, 'dispatch');
+    fixture.componentInstance.onCountryChange('country1');
+    expect(spy).toHaveBeenCalledWith(countryAction);
+  });
+
 });
